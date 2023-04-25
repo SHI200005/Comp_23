@@ -1,5 +1,3 @@
-# makefile for the test
-
 CXX=g++
 CXXFLAGS=-Wall -O3
 LDLIBS=-lgsl -lgslcblas -lm -lnetcdf_c++4 -lnetcdf
