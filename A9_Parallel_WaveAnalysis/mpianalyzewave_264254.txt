@@ -1,0 +1,30 @@
+rm -f analyzewave.o mpianalyzewave.o analyzewave mpianalyzewave
+g++ -c -std=c++17 -O3 -march=native -g -o analyzewave.o analyzewave.cpp 
+g++ -g -o analyzewave analyzewave.o -lnetcdf_c++4 -lnetcdf
+mpicxx -c -std=c++17 -O3 -march=native -g -o mpianalyzewave.o mpianalyzewave.cpp
+mpianalyzewave.cpp: In function ‘int main(int, char**)’:
+mpianalyzewave.cpp:85:26: warning: narrowing conversion of ‘(long int)nrows_start’ from ‘long int’ to ‘long unsigned int’ [-Wnarrowing]
+   85 |     rho_handle.getVar({0,nrows_start,0}, {1,nrows_own,ncols}, rho.data()); //!!ACHTUNG!! The starting poniter should be modified!!
+      |                          ^~~~~~~~~~~
+mpianalyzewave.cpp:85:26: warning: narrowing conversion of ‘nrows_start’ from ‘const long int’ to ‘long unsigned int’ [-Wnarrowing]
+mpianalyzewave.cpp:85:45: warning: narrowing conversion of ‘(long int)nrows_own’ from ‘long int’ to ‘long unsigned int’ [-Wnarrowing]
+   85 |     rho_handle.getVar({0,nrows_start,0}, {1,nrows_own,ncols}, rho.data()); //!!ACHTUNG!! The starting poniter should be modified!!
+      |                                             ^~~~~~~~~
+mpianalyzewave.cpp:85:45: warning: narrowing conversion of ‘nrows_own’ from ‘const long int’ to ‘long unsigned int’ [-Wnarrowing]
+mpianalyzewave.cpp:99:30: warning: narrowing conversion of ‘(long int)nrows_start’ from ‘long int’ to ‘long unsigned int’ [-Wnarrowing]
+   99 |         rho_handle.getVar({s,nrows_start,0}, {1,nrows_own,ncols}, rho.data()); //!!ACHTUNG!! The starting poniter should be modified!!
+      |                              ^~~~~~~~~~~
+mpianalyzewave.cpp:99:30: warning: narrowing conversion of ‘nrows_start’ from ‘const long int’ to ‘long unsigned int’ [-Wnarrowing]
+mpianalyzewave.cpp:99:49: warning: narrowing conversion of ‘(long int)nrows_own’ from ‘long int’ to ‘long unsigned int’ [-Wnarrowing]
+   99 |         rho_handle.getVar({s,nrows_start,0}, {1,nrows_own,ncols}, rho.data()); //!!ACHTUNG!! The starting poniter should be modified!!
+      |                                                 ^~~~~~~~~
+mpianalyzewave.cpp:99:49: warning: narrowing conversion of ‘nrows_own’ from ‘const long int’ to ‘long unsigned int’ [-Wnarrowing]
+mpicxx -g -o mpianalyzewave mpianalyzewave.o -lnetcdf_c++4 -lnetcdf
+Running with 1 processes
+Running with 2 processes
+Running with 3 processes
+Running with 5 processes
+Running with 9 processes
+Running with 16 processes
+Job completed successfully!
+rm -f analyzewave.o mpianalyzewave.o analyzewave mpianalyzewave
