@@ -1,0 +1,63 @@
+1. The result of gprof of the serial version.
+It only contains the 21 costlist lines.
+
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  Ts/call  Ts/call  name
+ 35.20      8.00     8.00                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:21 @ 40574e)
+ 22.93     13.22     5.21                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:14 @ 40571d)
+ 22.55     18.35     5.13                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:19 @ 40573d)
+  7.08     19.96     1.61                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:18 @ 405735)
+  2.55     20.54     0.58                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:16 @ 40570e)
+  2.31     21.06     0.53                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:15 @ 4056f8)
+  1.67     21.44     0.38                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:17 @ 405717)
+  1.52     21.79     0.35                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:20 @ 40575e)
+  1.52     22.13     0.35                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:13 @ 405764)
+  1.50     22.47     0.34                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:16 @ 405704)
+  0.46     22.58     0.11                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:19 @ 40572f)
+  0.31     22.65     0.07                             one_time_step(Parameters const&, WaveState&) (evolve.cpp:21 @ 40572a)
+  0.13     22.68     0.03                             initialize(Parameters const&, WaveState&) (initialize.cpp:30 @ 40428f)
+  0.11     22.70     0.03                             ra::rarray<double, 2>::_at(long) (rarray:2000 @ 4056dd)
+  0.07     22.72     0.02                             p(double, double, double) (initialize.cpp:15 @ 40425a)
+  0.04     22.73     0.01                             p(double, double, double) (initialize.cpp:15 @ 40427d)
+  0.02     22.73     0.01                             initialize(Parameters const&, WaveState&) (initialize.cpp:31 @ 40429a)
+  0.02     22.74     0.01                             initialize(Parameters const&, WaveState&) (initialize.cpp:27 @ 4042a0)
+  0.02     22.74     0.01                             p(double, double, double) (initialize.cpp:12 @ 40426c)
+  0.02     22.75     0.01                             p(double, double, double) (initialize.cpp:13 @ 404270)
+  0.02     22.75     0.01                             p(double, double, double) (initialize.cpp:12 @ 404274)
+
+---
+2. The two loops you identified as the most costly ones.
+The first most costly loop is "one_time_step" in evolve.cpp.
+The second most costly loop is "initialize" where the calculation of p is involved in initialize.cpp.
+
+---
+3. The timing results of the parallelized code as a function of the number of threads, and the corresponding speed-ups.
+threads, realtime, speedup
+1,  23.918s
+2,  12.337s, 1.938720921
+3,  8.934s,  2.67718827
+4,  7.043s,  3.395996024
+5,  6.149s,  3.889738169
+6,  5.057s,  4.729681629
+7,  4.573s,  5.230264597
+8,  4.018s,  5.952712792
+9,  3.708s,  6.450377562
+10, 3.285s,  7.280974125
+11, 3.136s,  7.626913265
+12, 2.964s,  8.069500675
+13, 2.764s,  8.653400868
+14, 2.656s,  9.005271084
+15, 2.469s,  9.687322803
+16, 2.324s,  10.29173838
+
+---
+4. A mention of the value of the serial fraction you determined.
+~0.12
+However, I run the job from 1-40 threads, and it seems that for 16 threads it is the fastest, while for larger number of threads, the real time oscillates around 3 seconds. So it doesn't represent the law very well. (check wave2d_262449.txt)
+
+---
+5. A plot of the speed up with the curve of Amdahl's law.
+See attached law.png.
