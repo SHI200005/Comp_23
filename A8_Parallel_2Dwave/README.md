@@ -2,6 +2,8 @@
 
 In this [assignment](https://education.scinet.utoronto.ca/mod/assign/view.php?id=2343), you will parallelize a given two-dimensional damped wave application wave2d (e.g., the partial solution to the 4th assignment), and assess its scaling performance. Note that this code also implements output to netCDF if the output filename has extension ".nc".
 
+In this folder, the result file was too large that I didn't upload it.
+
 ## Work in SCRATCH directory
 
 Before, you are working in **home directory**, on the **log in node**. Now you submit your job to run it on **compute nodes**. You will need to write the results of your program after running it. However, on teach cluster or Niagara, the home directories are read only. To have the results written, you need to work in **scratch directory**. Before starting your homework, type
