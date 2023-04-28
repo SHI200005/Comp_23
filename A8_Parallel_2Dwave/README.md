@@ -107,6 +107,8 @@ LDLIBS=-lnetcdf -lnetcdf_c++4 -pg -g -gdwarf-2 -fopenmp
 
 ## SBTCH file to submit your job
 
+Attention: Do not add extra spaces in the bash file!!!
+
 The information for the scheduler:
 
 ```
